@@ -1,0 +1,5 @@
+#OpenAi Keys
+SECRET_KEY = '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'
+
+#Telegram Keys
+TOKEN = '5891508267:AAE7BptqRu01Dyyu_NPd5Rnqc492aO-FjTk'
