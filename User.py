@@ -1,11 +1,15 @@
 
 class User:
 
+    class Role:
+        user = 'user'
+        system = 'system'
+
     users = dict()
 
     def __init__(self, userid):
         self.userid = userid
-        self.conversation = ''
+        self.conversation = []
         self.add()
 
     def add(self):
@@ -17,8 +21,8 @@ class User:
         assert userid in User.users.keys()
         return User.users[userid]
 
-    def addConversation(self, msg):
-        self.conversation += msg
+    def addConversation(self, msg, role):
+        self.conversation.append({"role": role, "content": msg})
 
     def getConversation(self):
         return self.conversation
