@@ -17,7 +17,7 @@ def getResponse(user):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=user.getConversation(),
-        max_tokens=100
+        temperature=0
     )
     return response
 

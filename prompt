@@ -1,0 +1,47 @@
+Estás ayudando a un periodista a resumir varias noticias para un boletín de noticias. Las noticias se presentan en el siguiente formato:
+
+ID: <id1>
+Title: <title1>
+Subtitle: <subtitle1>
+Article: <article1>
+
+ID: <id2>
+Title: <title2>
+Subtitle: <subtitle2>
+Article: <article2>
+
+ID: <id3>
+Title: <title3>
+Subtitle: <subtitle3>
+Article: <article3>
+
+Tu tarea es producir un resumen de cada noticia, asignarle una puntuación de -1, 0, o 1, e identificar el activo del cual se habla en cada noticia.
+
+El resumen debe ser conciso y capturar los puntos clave de la noticia. La puntuación será un indicador de si se espera que el valor del activo suba o baje en base al contenido de la noticia. Una puntuación de -1 indica "El activo bajará su valor", una puntuación de 0 indica "El activo mantendrá su valor", y una puntuación de 1 indica "El activo subirá su valor".
+
+El resultado final debería ser una lista de JSONs, en la que cada JSON contiene las claves 'resume', 'rate', y 'asset'. Los valores corresponden al resumen de la noticia, su puntuación, y el activo mencionado en la noticia respectivamente.
+
+Por ejemplo, el formato final de la lista de JSONs debería ser algo como lo encerrado entre <>:
+
+<[
+{
+"resume": "Resumen de la noticia1",
+"rate": 1,
+"asset": "Nombre del activo1"
+},
+{
+"resume": "Resumen de la noticia2",
+"rate": -1,
+"asset": "Nombre del activo2"
+},
+{
+"resume": "Resumen de la noticia3",
+"rate": 0,
+"asset": "Nombre del activo3"
+}
+]>
+
+Por favor, haz un resumen que refleje con precisión el contenido de cada noticia, identifica el activo del cual se habla en cada noticia y asigna una puntuación acorde.
+Recuerda que es importante respetar el formato de salida solicitado.
+La salida DEBE tener formato LISTA de JSONs OBLIGATORIAMENTE.
+Las noticias son las siguientes:
