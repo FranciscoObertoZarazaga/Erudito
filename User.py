@@ -9,7 +9,7 @@ class User:
 
     def __init__(self, userid):
         self.userid = userid
-        self.conversation = []
+        self.conversation = list()
         self.add()
 
     def add(self):
@@ -29,3 +29,6 @@ class User:
 
     def setConversation(self, conversation):
         self.conversation = conversation
+
+    def reset(self):
+        self.conversation = list()

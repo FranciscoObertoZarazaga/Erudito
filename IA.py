@@ -1,9 +1,14 @@
-import openai
+from openai import OpenAI
 from Config import SECRET_KEY
-import requests
 from User import User
+import requests
+import openai
+import os
 
 openai.api_key = SECRET_KEY
+client = OpenAI(
+  api_key=os.environ['OPENAI_API_KEY']
+)
 
 
 def chatIA(user, question):
@@ -14,10 +19,9 @@ def chatIA(user, question):
 
 
 def getResponse(user):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=user.getConversation(),
-        temperature=0
+        messages=user.getConversation()
     )
     return response
 

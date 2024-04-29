@@ -1,14 +1,15 @@
 import mysql.connector as db
+from Config import DB_USER, DB_DATABASE, DB_PASSWORD, DB_HOST, DB_PORT, NEWS_ASSET
 
 
 class DataBase:
     def __init__(self):
         self.conection = db.connect(
-            host='rm-2ev2pd8w385r421784o.mysql.rds.aliyuncs.com',
-            user='trader23_usr',
-            password='excitingTimes23!',
-            database='trader23_db',
-            port=3306
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_DATABASE,
+            port=DB_PORT
         )
         self.cursor = self.conection.cursor()
 
@@ -23,7 +24,8 @@ class DataBase:
 
     def select(self, table_name):
         try:
-            self.cursor.execute('SELECT * FROM ' + table_name + ' LIMIT 10')
+            self.cursor.execute('SELECT * FROM ' + table_name + f" WHERE news_text != '' and LOWER(news_title) LIKE '%{NEWS_ASSET} %' and year(news_date) >=2022")
+
             return list(self.cursor.fetchall())
         except Exception as e:
             print(e)

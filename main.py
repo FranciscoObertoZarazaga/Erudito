@@ -2,21 +2,53 @@ from User import User
 from IA import chatIA
 from News import News
 import json
+from time import sleep
+import re
 
-user = User(1)
-news_object = News()
-news = news_object.news
-step = 4
 
-for i in range(0, len(news), step):
-    new_id = news.loc[i].name
-    rate = news.iloc[i].rate
-    if rate is None:
-        prompt = news_object.getPrompt(new_id, step)
-        response = chatIA(user, prompt)
-        print(response)
-        result = eval(response)
-        print(response)
-        #news_object.setResult(new_id, result)
-        #news_object.update(new_id)
+def prefilter(text):
+    match = re.search(r'(\{.*\})', text, re.DOTALL)
+    if match:
+        text = match.group(1)
+    return text
+
+
+def postfilter(dictionary):
+    dictionary['resume'] = dictionary['resume'].replace("'", "´")
+    return dictionary
+
+
+count = 0
+
+
+while True:
+    print('Running...')
+    user = User(1)
+    news_object = News()
+    news = news_object.news
+
+    for index, new in news.iterrows():
+        rate = new['rate']
+        if rate is None:
+            user.reset()
+            prompt = news_object.getPrompt(index)
+            try:
+                response = chatIA(user, prompt)
+                response = prefilter(response)
+                print(response)
+                result = json.loads(response)
+                news_object.setResult(index, result)
+                news_object.update(index)
+                count += 1
+                print('Noticias clasificadas', count)
+                sleep(1)
+            except Exception as e:
+                raise e
+        if index == len(news) - 1:
+            print('Finalizado')
+            exit()
+
+
+
+
 

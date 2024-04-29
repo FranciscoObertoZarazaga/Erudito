@@ -9,6 +9,7 @@ class News:
         response = self.database.select('news')
         self.news = pd.DataFrame()
         self.df(response)
+        print(f'Len(news): {len(self.news)}')
 
     def df(self, data):
         for new in data:
@@ -32,20 +33,17 @@ class News:
         self.news['time'] = pd.to_timedelta(self.news['time'])
         self.news['datetime'] = self.news['date'] + self.news['time']
 
-    def getPrompt(self, index, n):
+    def getPrompt(self, index):
         prompt = open('prompt', mode='r', encoding='utf-8').read()
-        for i in range(n):
-            if index + i < len(self.news):
-                prompt += '\n\n'
-                prompt += f'ID: {index+i}) {self.news.iloc[index+i]["all"]}'
+        prompt += f'\nTitle: {self.news.iloc[index]["title"]}'
         return prompt
 
     def setResult(self, index, result):
-        self.news.loc[index, ['resume', 'rate', 'asset']] = [result['resume'], result['rate'], result['asset']]
+        self.news.loc[index, ['rate', 'asset']] = [result['rate'], result['asset']]
 
     def update(self, index):
-        hash_new, resume, rate = self.news.loc[index, ['hash', 'resume', 'rate']]
-        self.database.update('news', 'resume', resume, hash_new, 'h_news')
+        hash_new, rate, asset = self.news.loc[index, ['hash', 'rate', 'asset']]
         self.database.update('news', 'rate', rate, hash_new, 'h_news')
+        self.database.update('news', 'asset', asset, hash_new, 'h_news')
 
 

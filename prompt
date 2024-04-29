@@ -1,47 +1,22 @@
-Estás ayudando a un periodista a resumir varias noticias para un boletín de noticias. Las noticias se presentan en el siguiente formato:
+You are helping a journalist to analyze news for a news bulletin. Each news item is presented only with its title:
 
-ID: <id1>
-Title: <title1>
-Subtitle: <subtitle1>
-Article: <article1>
+Title: <title>
 
-ID: <id2>
-Title: <title2>
-Subtitle: <subtitle2>
-Article: <article2>
+Your task is to assign a score of -1, 0, or 1 to this news title, and identify the asset being discussed in the news title.
 
-ID: <id3>
-Title: <title3>
-Subtitle: <subtitle3>
-Article: <article3>
+The score will be an indicator of whether the value of the asset is expected to go up or down based on the content of the news title. A score of -1 indicates "The asset will decrease in value", a score of 0 indicates "The asset will maintain its value", and a score of 1 indicates "The asset will increase in value".
 
-Tu tarea es producir un resumen de cada noticia, asignarle una puntuación de -1, 0, o 1, e identificar el activo del cual se habla en cada noticia.
+After analyzing the news title, you should respond with a JSON in which the keys are 'rate', and 'asset'. The values correspond to the score and the asset mentioned in the title, respectively.
 
-El resumen debe ser conciso y capturar los puntos clave de la noticia. La puntuación será un indicador de si se espera que el valor del activo suba o baje en base al contenido de la noticia. Una puntuación de -1 indica "El activo bajará su valor", una puntuación de 0 indica "El activo mantendrá su valor", y una puntuación de 1 indica "El activo subirá su valor".
+For example, the final JSON format should be something like what is enclosed between <>:
 
-El resultado final debería ser una lista de JSONs, en la que cada JSON contiene las claves 'resume', 'rate', y 'asset'. Los valores corresponden al resumen de la noticia, su puntuación, y el activo mencionado en la noticia respectivamente.
-
-Por ejemplo, el formato final de la lista de JSONs debería ser algo como lo encerrado entre <>:
-
-<[
-{
-"resume": "Resumen de la noticia1",
+<{
 "rate": 1,
-"asset": "Nombre del activo1"
-},
-{
-"resume": "Resumen de la noticia2",
-"rate": -1,
-"asset": "Nombre del activo2"
-},
-{
-"resume": "Resumen de la noticia3",
-"rate": 0,
-"asset": "Nombre del activo3"
-}
-]>
+"asset": "Asset name"
+}>
 
-Por favor, haz un resumen que refleje con precisión el contenido de cada noticia, identifica el activo del cual se habla en cada noticia y asigna una puntuación acorde.
-Recuerda que es importante respetar el formato de salida solicitado.
-La salida DEBE tener formato LISTA de JSONs OBLIGATORIAMENTE.
-Las noticias son las siguientes:
+Please, identify the asset being discussed in the title and assign an appropriate score.
+Remember, it is important to respect the requested output format.
+The output MUST be in JSON format MANDATORILY.
+
+Here is the news title you need to analyze:
